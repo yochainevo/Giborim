@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
           logo: "images/logo_spotify_onlight.svg",
         },
         {
-          name: "להאזנה ב-Apple Podcast",
+          name: "להאזנה ב-Apple Podcasts",
           url: episodeRow["קישור לאפל פודקסט"],
           logo: "images/applepodcastlogo.svg",
         },
