@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           name: "להאזנה ב-YouTube",
           url: episodeRow["קישור ליוטיוב"],
-          logo: "images/logo_spotify_onlight.svg",
+          logo: "images/logo_youtube_onlight.svg",
         },     
         
       ],
