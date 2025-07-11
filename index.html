@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Service Linker</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to match the provided image */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #d1d5db, #f9fafb, #fde68a);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <div id="main-container" class="w-full max-w-md mx-auto p-4">
+        <!-- Loading Spinner -->
+        <div id="loader" class="text-center">
+             <svg class="animate-spin h-8 w-8 text-gray-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="mt-2 text-gray-500">Loading services...</p>
+        </div>
+
+        <!-- Main Content Card -->
+        <div id="content" class="hidden">
+            <div class="text-center mb-8">
+                <h1 id="title" class="text-2xl font-bold text-gray-800"></h1>
+                <p id="subtitle" class="text-gray-500 mt-1"></p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div id="services-list" class="divide-y divide-gray-200">
+                    <!-- Service items will be injected here by JavaScript -->
+                </div>
+            </div>
+
+            <div class="text-center text-xs text-gray-400 mt-6 px-4">
+                <p>By using this service, you agree to the use of cookies. <a href="#" class="underline">Click here</a> to manage your permissions.</p>
+                <p class="mt-2">This page may contain affiliate links.</p>
+            </div>
+        </div>
+        
+        <!-- Error Message Display -->
+        <div id="error-message" class="hidden text-center p-4 bg-red-100 text-red-700 rounded-lg">
+            <p>Could not load data. Please check the episode number and try again.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Element References ---
+            const loader = document.getElementById('loader');
+            const content = document.getElementById('content');
+            const errorMessage = document.getElementById('error-message');
+            const servicesList = document.getElementById('services-list');
+            const titleEl = document.getElementById('title');
+            const subtitleEl = document.getElementById('subtitle');
+
+            // --- Function to get query parameter from URL ---
+            const getEpisodeNumber = () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                // Default to '10' if the parameter is not present
+                return urlParams.get('episodeNumber') || '10';
+            };
+
+            // --- Function to fetch data from the API ---
+            const fetchData = async (episodeNumber) => {
+                const apiUrl = `https://script.google.com/macros/s/AKfycbyPUrSg3KDbijwUvmxPIIIdyiBdmLEreGsu1MT7JYrH9AxMuVG38a2obFkDEiQnU-JI/exec?episodeNumber=${episodeNumber}`;
+                
+                try {
+                    const response = await fetch(apiUrl);
+                    console.log('res', response)
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                    // Show error message and hide loader
+                    loader.classList.add('hidden');
+                    errorMessage.classList.remove('hidden');
+                    return null;
+                }
+            };
+
+            // --- Function to render the services ---
+            const renderServices = (data) => {
+                if (!data || !data.links) {
+                    // Show error if data is malformed
+                    loader.classList.add('hidden');
+                    errorMessage.classList.remove('hidden');
+                    return;
+                }
+
+                // --- Set Title and Subtitle ---
+                titleEl.textContent = data.title || 'Unknown Title';
+                subtitleEl.textContent = data.subtitle || 'Choose music service';
+
+                // --- Clear previous list items ---
+                servicesList.innerHTML = '';
+
+                // --- Create and append each service item ---
+                data.links.forEach(service => {
+                    // Determine button style and text based on action
+                    let buttonText = 'Play';
+                    let buttonClass = 'bg-gray-100 hover:bg-gray-200 text-gray-700';
+                    if (service.action === 'watch') {
+                        buttonText = 'Watch';
+                    } else if (service.action === 'download') {
+                        buttonText = 'Download';
+                        buttonClass = 'bg-gray-200 hover:bg-gray-300 text-gray-800';
+                    }
+
+                    const serviceElement = `
+                        <a href="${service.url}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200">
+                            <div class="flex items-center">
+                                <img src="${service.logo}" alt="${service.name} Logo" class="w-10 h-10 object-contain mr-4" onerror="this.style.display='none'">
+                                <span class="font-medium text-gray-800">${service.name}</span>
+                            </div>
+                            <button class="px-6 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 ${buttonClass}">
+                                ${buttonText}
+                            </button>
+                        </a>
+                    `;
+                    servicesList.innerHTML += serviceElement;
+                });
+
+                // --- Hide loader and show content ---
+                loader.classList.add('hidden');
+                content.classList.remove('hidden');
+            };
+
+            // --- Main execution flow ---
+            const init = async () => {
+                const episodeNumber = getEpisodeNumber();
+                const data = await fetchData(episodeNumber);
+                if (data) {
+                    renderServices(data);
+                }
+            };
+
+            init();
+        });
+    </script>
+
+</body>
+</html>
