@@ -39,9 +39,22 @@ document.addEventListener("DOMContentLoaded", () => {
       links: [
         {
           name: "להאזנה ב-Spotify",
-          url: episodeRow["קישור לפרק"],
+          url: episodeRow["קישור לספוטיפיי"],
           logo: "images/logo_spotify_onlight.svg",
         },
+
+        {
+          name: "להאזנה ב-Apple Podcast",
+          url: episodeRow["קישור לאפל פודקסט"],
+          logo: "images/applepodcastlogo.svg",
+        },        
+
+        {
+          name: "להאזנה ב-YouTube",
+          url: episodeRow["קישור ליוטיוב"],
+          logo: "images/logo_spotify_onlight.svg",
+        },     
+        
       ],
     };
   };
