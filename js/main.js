@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           name: "להאזנה ב-YouTube",
           url: episodeRow["קישור ליוטיוב"],
-          logo: "images/logo_spotify_onlight.svg",
+          logo: "images/logo_youtube_onlight.svg",
         },     
         
       ],
@@ -74,8 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const serviceElement = `
                     <a href="${service.url}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors duration-200">
                         <div class="flex items-center" style="width: 100%">
-                            <div class="font-medium text-gray-800" style="width:100%;text-align:center;">${service.name}</div>
-                            <img src="${service.logo}" alt="${service.name} Logo" class="w-13 h-11 object-contain mr-4" onerror="this.style.display='none'">
+                            <div class="font-medium text-gray-800" style="flex: 100% 1 1;">${service.name}</div>
+                            <img style="flex: 0" src="${service.logo}" alt="${service.name} Logo" class="w-13 h-11 object-contain mr-4" onerror="this.style.display='none'">
                         </div>
                     </a>
                 `;
