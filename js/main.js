@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getEpisodeNumber = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("episodeNumber") || "10";
+    return urlParams.get("ep") || urlParams.get("episodeNumber") || "10";
   };
 
   const fetchJsonData = async () => {
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
           logo: "images/logo_youtube_onlight.svg",
         },
       ],
-      logoUrl: `./images/episodes/${episodeRow["מספר פרק"]}.jpg`
+      logoUrl: `./images/episodes/${episodeRow["מספר פרק"]}.jpg`,
     };
   };
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     titleEl.textContent = data.title;
     subtitleEl.textContent = data.subtitle;
 
-    logoEl.setAttribute('src', data.logoUrl);
+    logoEl.setAttribute("src", data.logoUrl);
 
     // הוספת מחלקות Tailwind לעיצוב עם רווח
     servicesList.className = "flex flex-col space-y-4 p-4";
