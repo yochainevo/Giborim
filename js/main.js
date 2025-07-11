@@ -68,7 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
     titleEl.textContent = data.title;
     subtitleEl.textContent = data.subtitle;
 
-    logoEl.setAttribute('src', data.logoUrl)
+    logoEl.setAttribute('src', data.logoUrl);
+    
     // הוספת מחלקות Tailwind לעיצוב עם רווח
     servicesList.className = "flex flex-col space-y-4 p-4";
 
