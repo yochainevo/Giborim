@@ -76,7 +76,7 @@
             <a href="${service.url}" target="_blank" rel="noopener noreferrer"
               class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 rounded-lg p-4 bg-white shadow">
               <div class="flex items-center w-full">
-                <div class="font-medium text-gray-800 w-full text-center">${service.name}</div>
+                <div class="font-medium text-gray-800 w-full" style="padding-right:1em;">${service.name}</div>
                 <img src="${service.logo}" alt="${service.name} Logo"
                   class="w-13 h-11 object-contain mr-4" onerror="this.style.display='none'">
               </div>
