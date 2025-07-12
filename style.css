@@ -7,9 +7,14 @@ body {
   overflow: hidden;
 }
 
-/* אזור הלוגו */
+/* אזור הלוגו של הפרק */
 .logo-wrapper {
   height: 25vh;
+}
+
+#episode-logo img {
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 /* כותרת */
@@ -21,7 +26,7 @@ body {
   text-align: center;
 }
 
-/* תיאור הפרק */
+/* תיאור (subtitle) */
 .subtitle-class {
   font-weight: 400;
   font-size: 0.95rem;
@@ -29,28 +34,61 @@ body {
   text-align: center;
 }
 
+/* טקסט בכפתורים */
+.service-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1f2937;
+  text-align: right;
+  font-family: "Assistant", sans-serif;
+}
+
+/* מבנה כפתור שירות */
+.service-button-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* לוגו בתוך כפתור שירות */
+.service-logo {
+  width: 52px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: contain;
+  margin-left: 1rem;
+}
+
 /* כפתור שירות */
 .service-button {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: white;
+  padding: 1rem;
   border-radius: 12px;
-  padding: 0.5rem;
-  width: 60px;
-  height: 60px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
   transition: background-color 0.3s ease;
 }
 
 .service-button:hover {
-  background-color: #f3f4f6; /* אפור בהיר */
+  background-color: #f3f4f6;
 }
 
-/* לוגו שירות */
-.service-logo {
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  object-fit: contain;
+/* אנימציית טוען */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#loader svg {
+  animation: spin 1s linear infinite;
+  height: 2rem;
+  width: 2rem;
+  color: #9ca3af;
+  margin-left: auto;
+  margin-right: auto;
 }
