@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
           logo: "images/logo_youtube_onlight.svg",
         },
       ],
-      logoUrl: `./images/episodes/${episodeRow["מספר פרק"]}.jpg`,
+      logoUrl: `./images/episodes/${episodeRow["מספר פרק"]}_Logo.jpg`,
     };
   };
 
