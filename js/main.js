@@ -39,17 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
       subtitle: episodeRow["Subtitle"] || "בחר שירות",
       links: [
         {
-          name: "Spotify",
+          name: "להאזנה ב-Spotify",
           url: episodeRow["SpotifyLink"],
           logo: "images/logo_spotify_onlight.svg",
         },
         {
-          name: "Apple",
+          name: "להאזנה ב-Apple Podcasts",
           url: episodeRow["AppleLink"],
           logo: "images/applepodcastlogo.svg",
         },
         {
-          name: "YouTube",
+          name: "להאזנה ב-YouTube",
           url: episodeRow["YoutubeLink"],
           logo: "images/logo_youtube_onlight.svg",
         },
@@ -67,18 +67,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     titleEl.textContent = data.title;
     subtitleEl.textContent = data.subtitle;
-
     logoEl.setAttribute("src", data.logoUrl);
-    servicesList.className = "flex justify-center space-x-4 p-2";
 
+    servicesList.className = "flex flex-col items-center space-y-4";
     servicesList.innerHTML = "";
 
     data.links.forEach((service) => {
       const serviceElement = `
         <a href="${service.url}" target="_blank" rel="noopener noreferrer"
-          class="service-button" aria-label="${service.name}">
-          <img src="${service.logo}" alt="${service.name} Logo"
-            class="service-logo" onerror="this.style.display='none'">
+          class="service-button w-full max-w-[270px]">
+          <div class="service-button-inner">
+            <div class="service-name">${service.name}</div>
+            <img src="${service.logo}" alt="${service.name} Logo"
+              class="service-logo" onerror="this.style.display='none'">
+          </div>
         </a>
       `;
       servicesList.innerHTML += serviceElement;
