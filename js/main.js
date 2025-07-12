@@ -40,17 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
       links: [
         {
           name: "להאזנה ב-Spotify",
-          url: episodeRow["קישור לספוטיפיי"],
+          url: episodeRow["SpotifyLink"],
           logo: "images/logo_spotify_onlight.svg",
         },
         {
           name: "להאזנה ב-Apple Podcasts",
-          url: episodeRow["קישור לאפל פודקסט"],
+          url: episodeRow["AppleLink"],
           logo: "images/applepodcastlogo.svg",
         },
         {
           name: "להאזנה ב-YouTube",
-          url: episodeRow["קישור ליוטיוב"],
+          url: episodeRow["YoutubeLink"],
           logo: "images/logo_youtube_onlight.svg",
         },
       ],
