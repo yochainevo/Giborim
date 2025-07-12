@@ -1,4 +1,4 @@
-/* רקע כולל */
+/* רקע ותצוגה כללית */
 body {
   background-color: black;
   color: white;
@@ -7,7 +7,7 @@ body {
   overflow: hidden;
 }
 
-/* אזור הלוגו של הפרק */
+/* לוגו הפרק */
 .logo-wrapper {
   height: 25vh;
 }
@@ -22,28 +22,35 @@ body {
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: -0.5px;
-  color: white;
   text-align: center;
+  color: white;
 }
 
-/* תיאור (subtitle) */
+/* תיאור פרק */
 .subtitle-class {
   font-weight: 400;
   font-size: 0.95rem;
-  color: white;
   text-align: center;
+  color: white;
 }
 
-/* טקסט בכפתורים */
-.service-name {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #1f2937;
-  text-align: right;
-  font-family: "Assistant", sans-serif;
+/* כפתורי שירות */
+.service-button {
+  width: 100%;
+  max-width: 270px; /* מותאם לרוחב הכותרת */
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
 }
 
-/* מבנה כפתור שירות */
+.service-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* תוכן פנימי של כפתור */
 .service-button-inner {
   display: flex;
   align-items: center;
@@ -51,44 +58,20 @@ body {
   width: 100%;
 }
 
-/* לוגו בתוך כפתור שירות */
+/* טקסט בשירות */
+.service-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1f2937;
+  font-family: "Assistant", sans-serif;
+  text-align: right;
+  padding-right: 1em;
+}
+
+/* לוגו השירות */
 .service-logo {
   width: 52px;
   height: 44px;
   border-radius: 12px;
   object-fit: contain;
-  margin-left: 1rem;
-}
-
-/* כפתור שירות */
-.service-button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: white;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.service-button:hover {
-  background-color: #f3f4f6;
-}
-
-/* אנימציית טוען */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-#loader svg {
-  animation: spin 1s linear infinite;
-  height: 2rem;
-  width: 2rem;
-  color: #9ca3af;
-  margin-left: auto;
-  margin-right: auto;
 }
