@@ -76,16 +76,17 @@ document.addEventListener("DOMContentLoaded", () => {
     servicesList.innerHTML = "";
 
     data.links.forEach((service) => {
-      const serviceElement = `
-            <a href="${service.url}" target="_blank" rel="noopener noreferrer"
-              class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 rounded-lg p-4 bg-white shadow">
-              <div class="flex items-center w-full">
-                <div class="font-medium text-gray-800 w-full" style="padding-right:1em; font-size:0.85rem;"> ${service.name}</div>
-                <img src="${service.logo}" alt="${service.name} Logo"
-                  class="w-13 h-11 object-contain mr-4" onerror="this.style.display='none'">
-              </div>
-            </a>
-          `;
+  const serviceElement = `
+  <a href="${service.url}" target="_blank" rel="noopener noreferrer"
+    class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 rounded-lg p-4 bg-white shadow">
+    <div class="flex items-center w-full justify-between">
+      <img src="${service.logo}" alt="${service.name} Logo"
+        class="w-13 h-11 object-contain ml-4" onerror="this.style.display='none'">
+      <div class="service-name font-medium w-full text-right" style="font-size:0.85rem;">${service.name}</div>
+    </div>
+  </a>
+`;
+
       servicesList.innerHTML += serviceElement;
     });
 
