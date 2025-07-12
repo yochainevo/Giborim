@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const formatDataForRender = (episodeRow) => {
     return {
-      title: episodeRow["שם הפרק"] || "Unknown Title",
-      subtitle: episodeRow["שם הדמות"] || "Choose a service",
+      title: episodeRow["Title"] || "Unknown Title",
+      subtitle: episodeRow["Subtitle"] || "Choose a service",
       links: [
         {
           name: "להאזנה ב-Spotify",
