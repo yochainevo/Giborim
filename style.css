@@ -1,31 +1,46 @@
-/* רקע כללי */
+/* עיצוב כללי לאתר */
 body {
   background-color: black;
   color: white;
-  font-family: "Inter", sans-serif;
+  font-family: "Assistant", sans-serif;
+  height: 100vh;
+  overflow: hidden; /* אין גלילה במובייל */
 }
 
-/* אזור הלוגו */
+/* אזור הלוגו (קטן יותר כדי שיתאים למסך) */
 .logo-wrapper {
   height: 25vh;
 }
 
-
-/* תיאור פרק (Subtitle) */
-.subtitle-class {
-  font-size: 0.95rem;
-  font-weight: bold;
+/* כותרת ראשית (Title) */
+#title {
+  font-family: "Assistant", sans-serif;
+  font-weight: 700; /* Bold */
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
   color: white;
+  text-align: center;
 }
 
-/* טקסט כפתורי שירות */
+/* כותרת משנה (Subtitle) */
+.subtitle-class {
+  font-family: "Assistant", sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 0.95rem;
+  color: white;
+  text-align: center;
+}
+
+/* טקסט על כפתורי השירות (גדול + מודגש) */
 .service-name {
-  font-size: 1rem;       
-  font-weight: bold;     
-  color: #1f2937;          /* אפור כהה */
+  font-family: "Assistant", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1f2937;
   text-align: right;
 }
 
+/* מבנה פנימי של כפתור שירות */
 .service-button-inner {
   display: flex;
   align-items: center;
@@ -33,8 +48,18 @@ body {
   width: 100%;
 }
 
-
-/* אנימציית סיבוב ל-loader */
+/* אנימציית טוען */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#loader svg {
+  animation: spin 1s linear infinite;
+  height: 2rem;
+  width: 2rem;
+  color: #9ca3af;
+  margin-left: auto;
+  margin-right: auto;
 }
