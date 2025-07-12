@@ -25,6 +25,13 @@ body {
   text-align: right;
 }
 
+.service-button-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 
 /* אנימציית סיבוב ל-loader */
 @keyframes spin {
