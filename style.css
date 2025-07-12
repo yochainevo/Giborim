@@ -1,19 +1,30 @@
+/* רקע כללי */
 body {
   background-color: black;
   color: white;
   font-family: "Inter", sans-serif;
 }
 
-/* עיצוב של תיאור הפרק (Subtitle) */
+/* אזור הלוגו */
+.logo-wrapper {
+  height: 40vh;
+}
+
+/* תיאור פרק (Subtitle) */
 .subtitle-class {
   font-size: 0.95rem;
   font-weight: bold;
   color: white;
 }
 
-
-/* עיצוב הטקסט בכפתורים הלבנים */
+/* טקסט כפתורי שירות */
 .service-name {
   font-size: 0.85rem;
-  color: #1f2937; /* אפור כהה */
+  color: #1f2937;
+  text-align: right;
+}
+
+/* אנימציית סיבוב ל-loader */
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
