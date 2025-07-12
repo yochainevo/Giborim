@@ -39,17 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
       subtitle: episodeRow["Subtitle"] || "Choose a service",
       links: [
         {
-          name: "להאזנה ב-Spotify",
+          name: "להאזנה ב",
           url: episodeRow["SpotifyLink"],
           logo: "images/logo_spotify_onlight.svg",
         },
         {
-          name: "להאזנה ב-Apple Podcasts",
+          name: "להאזנה ב",
           url: episodeRow["AppleLink"],
           logo: "images/applepodcastlogo.svg",
         },
         {
-          name: "להאזנה ב-YouTube",
+          name: "להאזנה ב",
           url: episodeRow["YoutubeLink"],
           logo: "images/logo_youtube_onlight.svg",
         },
