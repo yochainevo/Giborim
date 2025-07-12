@@ -7,8 +7,9 @@ body {
 
 /* אזור הלוגו */
 .logo-wrapper {
-  height: 40vh;
+  height: 25vh;
 }
+
 
 /* תיאור פרק (Subtitle) */
 .subtitle-class {
