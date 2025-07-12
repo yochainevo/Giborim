@@ -49,12 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
           logo: "images/applepodcastlogo.svg",
         },
         {
-       name: "להאזנה ב-YouTube",
+          name: "להאזנה ב-YouTube",
           url: episodeRow["קישור ליוטיוב"],
           logo: "images/logo_youtube_onlight.svg",
         },
       ],
-      logoUrl:  "images/logo_youtube_onlight.svg",
+      logoUrl: `./images/episodes/${episodeRow["מספר פרק"]}_Logo.jpg`,
     };
   };
 
