@@ -9,17 +9,18 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts - Inter -->
+  <!-- Google Fonts - Assistant -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- קובץ העיצוב החיצוני -->
+  <!-- קובץ CSS חיצוני -->
   <link rel="stylesheet" href="./style.css">
 </head>
 
 <body class="flex items-center justify-center min-h-screen">
   <div id="main-container" class="w-full max-w-md mx-auto p-4">
+    
     <!-- טוען -->
     <div id="loader" class="text-center">
       <svg class="animate-spin h-8 w-8 text-gray-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -34,18 +35,22 @@
 
     <!-- תוכן עיקרי -->
     <div id="content" class="hidden">
+      
+      <!-- לוגו -->
       <div id="episode-logo" class="logo-wrapper text-center mb-8 flex justify-center">
         <img src="images/logo.jpeg" alt="גיבורים" />
       </div>
 
+      <!-- כותרות -->
       <div class="text-center mb-8">
-        <h1 id="title" class="text-2xl font-bold text-white"></h1>
+        <h1 id="title"></h1>
         <p id="subtitle" class="subtitle-class mt-1"></p>
       </div>
 
+      <!-- רשימת שירותים -->
       <div class="rounded-xl overflow-hidden">
         <div id="services-list" class="divide-y divide-gray-200">
-          <!-- כפתורי השירותים יוזרקו כאן -->
+          <!-- הכפתורים יוזרקו כאן -->
         </div>
       </div>
     </div>
@@ -56,6 +61,7 @@
     </div>
   </div>
 
+  <!-- סקריפט הפונקציונליות -->
   <script src="js/main.js"></script>
 </body>
 </html>
