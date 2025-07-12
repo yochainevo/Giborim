@@ -1,65 +1,56 @@
-/* עיצוב כללי לאתר */
+/* רקע כולל */
 body {
   background-color: black;
   color: white;
   font-family: "Assistant", sans-serif;
   height: 100vh;
-  overflow: hidden; /* אין גלילה במובייל */
+  overflow: hidden;
 }
 
-/* אזור הלוגו (קטן יותר כדי שיתאים למסך) */
+/* אזור הלוגו */
 .logo-wrapper {
   height: 25vh;
 }
 
-/* כותרת ראשית (Title) */
+/* כותרת */
 #title {
-  font-family: "Assistant", sans-serif;
-  font-weight: 700; /* Bold */
+  font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: -0.5px;
   color: white;
   text-align: center;
 }
 
-/* כותרת משנה (Subtitle) */
+/* תיאור הפרק */
 .subtitle-class {
-  font-family: "Assistant", sans-serif;
-  font-weight: 400; /* Regular */
+  font-weight: 400;
   font-size: 0.95rem;
   color: white;
   text-align: center;
 }
 
-/* טקסט על כפתורי השירות (גדול + מודגש) */
-.service-name {
-  font-family: "Assistant", sans-serif;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #1f2937;
-  text-align: right;
-}
-
-/* מבנה פנימי של כפתור שירות */
-.service-button-inner {
+/* כפתור שירות */
+.service-button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  background-color: white;
+  border-radius: 12px;
+  padding: 0.5rem;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+}
+
+.service-button:hover {
+  background-color: #f3f4f6; /* אפור בהיר */
+}
+
+/* לוגו שירות */
+.service-logo {
   width: 100%;
-}
-
-/* אנימציית טוען */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-#loader svg {
-  animation: spin 1s linear infinite;
-  height: 2rem;
-  width: 2rem;
-  color: #9ca3af;
-  margin-left: auto;
-  margin-right: auto;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: contain;
 }
