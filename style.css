@@ -19,10 +19,12 @@ body {
 
 /* טקסט כפתורי שירות */
 .service-name {
-  font-size: 0.85rem;
-  color: #1f2937;
+  font-size: 1rem;       
+  font-weight: bold;     
+  color: #1f2937;          /* אפור כהה */
   text-align: right;
 }
+
 
 /* אנימציית סיבוב ל-loader */
 @keyframes spin {
