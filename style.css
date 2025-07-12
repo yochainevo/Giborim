@@ -7,9 +7,10 @@ body {
 /* עיצוב של תיאור הפרק (Subtitle) */
 .subtitle-class {
   font-size: 0.95rem;
-  font-weight: 400;
+  font-weight: bold;
   color: white;
 }
+
 
 /* עיצוב הטקסט בכפתורים הלבנים */
 .service-name {
