@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getEpisodeNumber = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("ep") || urlParams.get("episodeNumber") || "10";
+    return urlParams.get("ep") || urlParams.get("episodeNumber") || "1";
   };
 
   const fetchJsonData = async () => {
@@ -36,25 +36,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const formatDataForRender = (episodeRow) => {
     return {
       title: episodeRow["Title"] || "Unknown Title",
-      subtitle: episodeRow["Subtitle"] || "Choose a service",
+      subtitle: episodeRow["Subtitle"] || "בחר שירות",
       links: [
         {
-          name: "להאזנה ב",
+          name: "Spotify",
           url: episodeRow["SpotifyLink"],
           logo: "images/logo_spotify_onlight.svg",
         },
         {
-          name: "להאזנה ב",
+          name: "Apple",
           url: episodeRow["AppleLink"],
           logo: "images/applepodcastlogo.svg",
         },
         {
-          name: "להאזנה ב",
+          name: "YouTube",
           url: episodeRow["YoutubeLink"],
           logo: "images/logo_youtube_onlight.svg",
         },
       ],
-    logoUrl: `./images/episodes/${String(episodeRow["מספר פרק"]).padStart(2, "0")}_Logo.jpg`,
+      logoUrl: `./images/episodes/${String(episodeRow["מספר פרק"]).padStart(2, "0")}_Logo.jpg`,
     };
   };
 
@@ -69,24 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
     subtitleEl.textContent = data.subtitle;
 
     logoEl.setAttribute("src", data.logoUrl);
-
-    // הוספת מחלקות Tailwind לעיצוב עם רווח
-    servicesList.className = "flex flex-col space-y-4 p-4";
+    servicesList.className = "flex justify-center space-x-4 p-2";
 
     servicesList.innerHTML = "";
 
     data.links.forEach((service) => {
-  const serviceElement = `
-  <a href="${service.url}" target="_blank" rel="noopener noreferrer"
-    class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 rounded-lg p-4 bg-white shadow">
-    <div class="flex items-center w-full justify-between">
-      <img src="${service.logo}" alt="${service.name} Logo"
-        class="w-13 h-11 object-contain ml-4" onerror="this.style.display='none'">
-      <div class="service-name font-medium w-full text-right" style="font-size:0.85rem;">${service.name}</div>
-    </div>
-  </a>
-`;
-
+      const serviceElement = `
+        <a href="${service.url}" target="_blank" rel="noopener noreferrer"
+          class="service-button" aria-label="${service.name}">
+          <img src="${service.logo}" alt="${service.name} Logo"
+            class="service-logo" onerror="this.style.display='none'">
+        </a>
+      `;
       servicesList.innerHTML += serviceElement;
     });
 
@@ -99,18 +93,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const jsonData = await fetchJsonData();
 
     if (jsonData) {
-      const episodeRow = jsonData.find(
-        (row) => row["מספר פרק"] == episodeNumber
-      );
+      const episodeRow = jsonData.find(row => row["מספר פרק"] == episodeNumber);
       if (episodeRow) {
         const formattedData = formatDataForRender(episodeRow);
         renderServices(formattedData);
       } else {
         loader.classList.add("hidden");
         errorMessage.classList.remove("hidden");
-        errorMessage.querySelector(
-          "p"
-        ).textContent = `לא נמצאו נתונים עבור פרק ${episodeNumber}.`;
+        errorMessage.querySelector("p").textContent =
+          `לא נמצאו נתונים עבור פרק ${episodeNumber}.`;
       }
     }
   };
