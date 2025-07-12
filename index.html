@@ -1,66 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="he">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>גיבורים</title>
-    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  body {
-    background-color: black;
-    color: white; /* אם תרצה גם שהטקסט יהיה לבן */
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>גיבורים</title>
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- קובץ העיצוב החיצוני -->
+  <link rel="stylesheet" href="./style.css">
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
+<body class="flex items-center justify-center min-h-screen">
 
-    <div id="main-container" class="w-full max-w-md mx-auto p-4">
-        <!-- Loading Spinner -->
-        <div id="loader" class="text-center">
-            <svg class="animate-spin h-8 w-8 text-gray-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                </path>
-            </svg>
-            <p class="mt-2 text-gray-500">בטעינה...</p>
-        </div>
-
-        <!-- Main Content Card -->
-        <div id="content" class="hidden">
-            <div id="episode-logo" class="text-center mb-8 flex justify-center" style="height: 40vh;">
-                <img src="images/logo.jpeg" alt="גיבורים" />
-            </div>
-            <div class="text-center mb-8">
-                <h1 id="title" class="text-2xl font-bold text-gray-800"></h1>
-                <p id="subtitle" class="text-gray-500 mt-1"></p>
-            </div>
-
-            <div class="rounded-xl overflow-hidden">
-                <div id="services-list" class="divide-y divide-gray-200">
-                    <!-- Service items will be injected here by JavaScript -->
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Error Message Display -->
-        <div id="error-message" class="hidden text-center p-4 bg-red-100 text-red-700 rounded-lg">
-            <p>Could not load data. Please check the episode number and try again.</p>
-        </div>
+  <div id="main-container" class="w-full max-w-md mx-auto p-4">
+    <!-- טוען -->
+    <div id="loader" class="text-center">
+      <svg class="animate-spin h-8 w-8 text-gray-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+        viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+        </path>
+      </svg>
+      <p class="mt-2 text-gray-400">בטעינה...</p>
     </div>
-    <script src="js/main.js"></script>
 
+    <!-- תוכן עיקרי -->
+    <div id="content" class="hidden">
+      <div id="episode-logo" class="text-center mb-8 flex justify-center" style="height: 40vh;">
+        <img src="images/logo.jpeg" alt="גיבורים" />
+      </div>
+
+      <div class="text-center mb-8">
+        <h1 id="title" class="text-2xl font-bold text-white"></h1>
+        <p id="subtitle" class="subtitle-class mt-1"></p>
+      </div>
+
+      <div class="rounded-xl overflow-hidden">
+        <div id="services-list" class="divide-y divide-gray-200">
+          <!-- כפתורי השירותים יוזרקו כאן -->
+        </div>
+      </div>
+    </div>
+
+    <!-- הודעת שגיאה -->
+    <div id="error-message" class="hidden text-center p-4 bg-red-100 text-red-700 rounded-lg">
+      <p>לא ניתן לטעון נתונים. בדוק את מספר הפרק ונסה שוב.</p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
 </body>
-
 </html>
