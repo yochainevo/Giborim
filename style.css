@@ -1,0 +1,15 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+#subtitle {
+  font-size: 0.9rem;
+  font-family: "Arial", sans-serif;
+  font-weight: 400;
+  color: white;
+}
+
+.service-name {
+  font-size: 0.85rem;
+}
