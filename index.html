@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>גיבורים</title>
   <link rel="icon" href="./images/favicon.ico">
-  
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Google Fonts - Assistant -->
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS עיצוב חיצוני -->
+
+  <!-- קובץ CSS -->
   <link rel="stylesheet" href="./style.css">
 </head>
 
-<body class="flex items-center justify-center min-h-screen">
-  <div id="main-container" class="w-full max-w-[270px] mx-auto p-4">
+<body>
+  <div id="main-container">
     
     <!-- טעינה -->
     <div id="loader" class="text-center">
@@ -30,9 +30,9 @@
       <p class="mt-2 text-gray-400">בטעינה...</p>
     </div>
 
-    <!-- תוכן ראשי -->
+    <!-- תוכן -->
     <div id="content" class="hidden">
-      <div id="episode-logo" class="logo-wrapper mb-6 flex justify-center">
+      <div id="episode-logo" class="logo-wrapper">
         <img src="images/logo.jpeg" alt="גיבורים" />
       </div>
 
@@ -42,11 +42,11 @@
       </div>
 
       <div id="services-list" class="flex flex-col items-center gap-4">
-        <!-- כפתורי השירות יוזרקו כאן -->
+        <!-- כפתורי שירות יוזרקו כאן -->
       </div>
     </div>
 
-    <!-- שגיאה -->
+    <!-- הודעת שגיאה -->
     <div id="error-message" class="hidden text-center p-4 bg-red-100 text-red-700 rounded-lg">
       <p>לא ניתן לטעון נתונים. בדוק את מספר הפרק ונסה שוב.</p>
     </div>
