@@ -46,7 +46,7 @@ body {
 /* תיאור פרק */
 .subtitle-class {
   font-weight: 400;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   text-align: center;
   color: white;
 }
@@ -72,8 +72,8 @@ body {
 
 /* לוגו בתוך הכפתור */
 .service-logo {
-  width: 44px;
-  height: 44px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   border-radius: 12px;
 }
