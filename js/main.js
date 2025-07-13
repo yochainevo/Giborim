@@ -11,13 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const subtitleEl = document.getElementById("subtitle");
   const logoEl = document.querySelector("#episode-logo img");
 
-  // קבלת מזהה פרק מה-URL (תומך גם ב-Bonus)
   const getEpisodeNumber = () => {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get("ep") || urlParams.get("episodeNumber") || "1";
   };
 
-  // שליפת JSON
   const fetchJsonData = async () => {
     try {
       const response = await fetch(FILE_PATH);
@@ -33,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // עיבוד שורת JSON
   const formatDataForRender = (episodeRow) => {
     const epNumber = episodeRow["מספר פרק"];
     const imageName = epNumber === "Bonus"
@@ -64,11 +61,26 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
-  // תצוגת הפרק בדף
   const renderServices = (data) => {
     titleEl.textContent = data.title;
     subtitleEl.textContent = data.subtitle;
     logoEl.setAttribute("src", data.logoUrl);
+
+    // התאמה דינמית לגודל הפונט לפי אורך הטקסט
+    const titleText = data.title || "";
+    const baseSize = 1.6;
+    let dynamicSize = baseSize;
+
+    if (titleText.length > 40) {
+      dynamicSize = 1.2;
+    } else if (titleText.length > 30) {
+      dynamicSize = 1.3;
+    } else if (titleText.length > 22) {
+      dynamicSize = 1.4;
+    }
+
+    titleEl.style.fontSize = `${dynamicSize}rem`;
+    titleEl.style.lineHeight = "1";
 
     servicesList.className = "flex flex-col items-center gap-4";
     servicesList.innerHTML = "";
@@ -87,9 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
     content.classList.remove("hidden");
   };
 
-  // איתחול
   const init = async () => {
-    const episodeNumber = getEpisodeNumber(); // יכול להיות גם "Bonus"
+    const episodeNumber = getEpisodeNumber();
     const jsonData = await fetchJsonData();
 
     if (jsonData) {
