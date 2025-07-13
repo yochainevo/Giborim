@@ -26,19 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
       loader.classList.add("hidden");
       errorMessage.classList.remove("hidden");
       errorMessage.querySelector("p").textContent =
-        "לא ניתן לטעון את הנתונים. בדוק את הנתיב או את שם הקובץ.";
+        "לא ניתן לטעון את הנתונים.";
       return null;
     }
   };
 
   const formatDataForRender = (episodeRow) => {
     const epNumber = episodeRow["מספר פרק"];
-    const imageName = epNumber === "Bonus"
+    const logoFilename = epNumber === "Bonus"
       ? "Bonus_Logo.jpg"
       : `${String(epNumber).padStart(2, "0")}_Logo.jpg`;
 
     return {
-      title: episodeRow["Title"] || "פרק ללא כותרת",
+      title: episodeRow["Title"] || "ללא כותרת",
       subtitle: episodeRow["Subtitle"] || "",
       links: [
         {
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
           logo: "images/logo_youtube_onlight.svg",
         },
       ],
-      logoUrl: `./images/episodes/${imageName}`,
+      logoUrl: `./images/episodes/${logoFilename}`,
     };
   };
 
@@ -65,22 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
     titleEl.textContent = data.title;
     subtitleEl.textContent = data.subtitle;
     logoEl.setAttribute("src", data.logoUrl);
-
-    // התאמה דינמית לגודל הפונט לפי אורך הטקסט
-    const titleText = data.title || "";
-    const baseSize = 1.6;
-    let dynamicSize = baseSize;
-
-    if (titleText.length > 40) {
-      dynamicSize = 1.2;
-    } else if (titleText.length > 30) {
-      dynamicSize = 1.3;
-    } else if (titleText.length > 22) {
-      dynamicSize = 1.4;
-    }
-
-    titleEl.style.fontSize = `${dynamicSize}rem`;
-    titleEl.style.lineHeight = "1";
 
     servicesList.className = "flex flex-col items-center gap-4";
     servicesList.innerHTML = "";
@@ -111,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loader.classList.add("hidden");
         errorMessage.classList.remove("hidden");
         errorMessage.querySelector("p").textContent =
-          `הפרק "${episodeNumber}" לא נמצא. נסה מספר אחר או Bonus.`;
+          `הפרק "${episodeNumber}" לא נמצא.`;
       }
     }
   };
