@@ -11,17 +11,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const subtitleEl = document.getElementById("subtitle");
   const logoEl = document.querySelector("#episode-logo img");
 
-  // פונקציה לקבלת מזהה הפרק מה-URL (תומכת גם ב-Bonus)
+  // קבלת מזהה פרק מה-URL (תומך גם ב-Bonus)
   const getEpisodeNumber = () => {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get("ep") || urlParams.get("episodeNumber") || "1";
   };
 
-  // טעינת קובץ JSON
+  // שליפת JSON
   const fetchJsonData = async () => {
     try {
       const response = await fetch(FILE_PATH);
-      if (!response.ok) throw new Error(`שגיאה בטעינת JSON: ${response.status}`);
+      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
       return await response.json();
     } catch (error) {
       console.error(error);
@@ -33,38 +33,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // עיצוב הנתונים מתוך שורת JSON
-  const formatDataForRender = (episodeRow) => ({
-    title: episodeRow["Title"] || "פרק ללא כותרת",
-    subtitle: episodeRow["Subtitle"] || "",
-    links: [
-      {
-        name: "Spotify",
-        url: episodeRow["SpotifyLink"],
-        logo: "images/logo_spotify_onlight.svg",
-      },
-      {
-        name: "Apple",
-        url: episodeRow["AppleLink"],
-        logo: "images/applepodcastlogo.svg",
-      },
-      {
-        name: "YouTube",
-        url: episodeRow["YoutubeLink"],
-        logo: "images/logo_youtube_onlight.svg",
-      },
-    ],
-    logoUrl: `./images/episodes/${String(episodeRow["מספר פרק"]).padStart(2, "0")}_Logo.jpg`,
-  });
+  // עיבוד שורת JSON
+  const formatDataForRender = (episodeRow) => {
+    const epNumber = episodeRow["מספר פרק"];
+    const imageName = epNumber === "Bonus"
+      ? "Bonus_Logo.jpg"
+      : `${String(epNumber).padStart(2, "0")}_Logo.jpg`;
 
-  // הצגת פרטי הפרק ויצירת כפתורי השירות
+    return {
+      title: episodeRow["Title"] || "פרק ללא כותרת",
+      subtitle: episodeRow["Subtitle"] || "",
+      links: [
+        {
+          name: "Spotify",
+          url: episodeRow["SpotifyLink"],
+          logo: "images/logo_spotify_onlight.svg",
+        },
+        {
+          name: "Apple",
+          url: episodeRow["AppleLink"],
+          logo: "images/applepodcastlogo.svg",
+        },
+        {
+          name: "YouTube",
+          url: episodeRow["YoutubeLink"],
+          logo: "images/logo_youtube_onlight.svg",
+        },
+      ],
+      logoUrl: `./images/episodes/${imageName}`,
+    };
+  };
+
+  // תצוגת הפרק בדף
   const renderServices = (data) => {
-    if (!data || !data.links) {
-      loader.classList.add("hidden");
-      errorMessage.classList.remove("hidden");
-      return;
-    }
-
     titleEl.textContent = data.title;
     subtitleEl.textContent = data.subtitle;
     logoEl.setAttribute("src", data.logoUrl);
@@ -86,13 +87,13 @@ document.addEventListener("DOMContentLoaded", () => {
     content.classList.remove("hidden");
   };
 
-  // איתחול ראשוני
+  // איתחול
   const init = async () => {
-    const episodeNumber = getEpisodeNumber(); // יכול להיות "Bonus"
+    const episodeNumber = getEpisodeNumber(); // יכול להיות גם "Bonus"
     const jsonData = await fetchJsonData();
 
     if (jsonData) {
-      const episodeRow = jsonData.find(row => row["מספר פרק"] === episodeNumber);
+      const episodeRow = jsonData.find(row => String(row["מספר פרק"]) === episodeNumber);
       if (episodeRow) {
         renderServices(formatDataForRender(episodeRow));
       } else {
