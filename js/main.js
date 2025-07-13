@@ -11,53 +11,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const subtitleEl = document.getElementById("subtitle");
   const logoEl = document.querySelector("#episode-logo img");
 
+  // פונקציה לקבלת מזהה הפרק מה-URL (תומכת גם ב-Bonus)
   const getEpisodeNumber = () => {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get("ep") || urlParams.get("episodeNumber") || "1";
   };
 
+  // טעינת קובץ JSON
   const fetchJsonData = async () => {
     try {
       const response = await fetch(FILE_PATH);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`שגיאה בטעינת JSON: ${response.status}`);
       return await response.json();
     } catch (error) {
-      console.error("Error fetching JSON file:", error);
+      console.error(error);
       loader.classList.add("hidden");
       errorMessage.classList.remove("hidden");
       errorMessage.querySelector("p").textContent =
-        "לא ניתן לטעון את קובץ הנתונים. בדוק את הנתיב.";
+        "לא ניתן לטעון את הנתונים. בדוק את הנתיב או את שם הקובץ.";
       return null;
     }
   };
 
-  const formatDataForRender = (episodeRow) => {
-    return {
-      title: episodeRow["Title"] || "Unknown Title",
-      subtitle: episodeRow["Subtitle"] || "בחר שירות",
-      links: [
-        {
-          name: "Spotify",
-          url: episodeRow["SpotifyLink"],
-          logo: "images/logo_spotify_onlight.svg",
-        },
-        {
-          name: "Apple Podcasts",
-          url: episodeRow["AppleLink"],
-          logo: "images/applepodcastlogo.svg",
-        },
-        {
-          name: "YouTube",
-          url: episodeRow["YoutubeLink"],
-          logo: "images/logo_youtube_onlight.svg",
-        },
-      ],
-      logoUrl: `./images/episodes/${String(episodeRow["מספר פרק"]).padStart(2, "0")}_Logo.jpg`,
-    };
-  };
+  // עיצוב הנתונים מתוך שורת JSON
+  const formatDataForRender = (episodeRow) => ({
+    title: episodeRow["Title"] || "פרק ללא כותרת",
+    subtitle: episodeRow["Subtitle"] || "",
+    links: [
+      {
+        name: "Spotify",
+        url: episodeRow["SpotifyLink"],
+        logo: "images/logo_spotify_onlight.svg",
+      },
+      {
+        name: "Apple",
+        url: episodeRow["AppleLink"],
+        logo: "images/applepodcastlogo.svg",
+      },
+      {
+        name: "YouTube",
+        url: episodeRow["YoutubeLink"],
+        logo: "images/logo_youtube_onlight.svg",
+      },
+    ],
+    logoUrl: `./images/episodes/${String(episodeRow["מספר פרק"]).padStart(2, "0")}_Logo.jpg`,
+  });
 
+  // הצגת פרטי הפרק ויצירת כפתורי השירות
   const renderServices = (data) => {
     if (!data || !data.links) {
       loader.classList.add("hidden");
@@ -73,34 +73,33 @@ document.addEventListener("DOMContentLoaded", () => {
     servicesList.innerHTML = "";
 
     data.links.forEach((service) => {
-      const serviceElement = `
+      servicesList.innerHTML += `
         <a href="${service.url}" target="_blank" rel="noopener noreferrer"
           class="service-button" aria-label="${service.name}">
           <img src="${service.logo}" alt="${service.name} Logo"
             class="service-logo" onerror="this.style.display='none'">
         </a>
       `;
-      servicesList.innerHTML += serviceElement;
     });
 
     loader.classList.add("hidden");
     content.classList.remove("hidden");
   };
 
+  // איתחול ראשוני
   const init = async () => {
-    const episodeNumber = getEpisodeNumber();
+    const episodeNumber = getEpisodeNumber(); // יכול להיות "Bonus"
     const jsonData = await fetchJsonData();
 
     if (jsonData) {
-      const episodeRow = jsonData.find(row => row["מספר פרק"] == episodeNumber);
+      const episodeRow = jsonData.find(row => row["מספר פרק"] === episodeNumber);
       if (episodeRow) {
-        const formattedData = formatDataForRender(episodeRow);
-        renderServices(formattedData);
+        renderServices(formatDataForRender(episodeRow));
       } else {
         loader.classList.add("hidden");
         errorMessage.classList.remove("hidden");
         errorMessage.querySelector("p").textContent =
-          `לא נמצאו נתונים עבור פרק ${episodeNumber}.`;
+          `הפרק "${episodeNumber}" לא נמצא. נסה מספר אחר או Bonus.`;
       }
     }
   };
