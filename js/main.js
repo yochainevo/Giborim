@@ -101,4 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   init();
-});
+
+  // צילום מסך
+  document.getElementById("
