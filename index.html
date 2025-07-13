@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="he">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>גיבורים</title>
-  <link rel="icon" href="./images/favicon.ico">
-
-  <!-- Tailwind CSS -->
+  <link rel="icon" href="./images/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts - Assistant -->
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- קובץ CSS -->
-  <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 
 <body>
+  <!-- כפתור צילום מסך בפינה העליונה -->
+  <button id="screenshot-btn"
+    class="absolute top-2 left-2 bg-white text-black px-3 py-1 rounded-lg shadow hover:bg-gray-200 z-50">
+    📸
+  </button>
+
   <div id="main-container">
-    
     <!-- טעינה -->
     <div id="loader" class="text-center">
       <svg class="animate-spin h-8 w-8 text-gray-400 mx-auto" viewBox="0 0 24 24" fill="none">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.3A7.96 7.96 0 014 12H0c0 3 1.13 5.82 3 7.94l3-2.64z">
-        </path>
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.3A7.96 7.96 0 014 12H0c0 3 1.13 5.82 3 7.94l3-2.64z" />
       </svg>
       <p class="mt-2 text-gray-400">בטעינה...</p>
     </div>
@@ -36,13 +35,13 @@
         <img src="images/logo.jpeg" alt="גיבורים" />
       </div>
 
-      <div class="text-center mb-4">
+      <div class="text-center mb-2">
         <h1 id="title"></h1>
         <p id="subtitle" class="subtitle-class mt-1"></p>
       </div>
 
       <div id="services-list" class="flex flex-col items-center gap-4">
-        <!-- כפתורי שירות יוזרקו כאן -->
+        <!-- כפתורי שירות -->
       </div>
     </div>
 
