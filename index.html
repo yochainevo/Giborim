@@ -5,38 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>גיבורים — הפודקאסט</title>
   <link rel="icon" href="./images/favicon.ico" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div id="main-container" class="flex flex-col items-center text-center pt-6">
+  <div id="main-container">
 
     <!-- לוגו ראשי של הפודקאסט -->
-    <div id="episode-logo" class="logo-wrapper mb-4">
-      <img src="images/Main_Logo.jpg" alt="גיבורים" class="w-[140px] h-[140px] rounded-full object-cover" />
+    <div id="episode-logo" class="logo-wrapper">
+      <img src="images/Main_Logo.jpg" alt="גיבורים" />
     </div>
 
     <!-- כותרת ותיאור -->
-    <div class="mb-4">
-      <h1 id="title" class="text-2xl font-bold text-white">גיבורים — הפודקאסט</h1>
-      <p id="subtitle" class="text-white mt-1 text-base">סיפורים אמיתיים על חוזק, התגברות, ואנשים שלא מוותרים</p>
+    <div class="text-center mb-2">
+      <h1 id="title">גיבורים — הפודקאסט</h1>
+      <p id="subtitle" class="subtitle-class mt-1">סיפורים אמיתיים על חוזק, התגברות, ואנשים שלא מוותרים</p>
     </div>
 
     <!-- כפתורי פלטפורמות -->
-    <div id="services-list" class="flex flex-col items-center gap-4 mb-6">
+    <div id="services-list" class="flex flex-col items-center gap-4">
       <a href="https://open.spotify.com/show/5Z4qxwzoaU06SboAPKfyHc" target="_blank" class="service-button">
-        <img src="images/logo_spotify_onlight.svg" alt="Spotify Logo" class="service-logo w-24" />
+        <img src="images/logo_spotify_onlight.svg" alt="Spotify Logo" class="service-logo" />
       </a>
       <a href="https://podcasts.apple.com/podcast/idXXXXXXX" target="_blank" class="service-button">
-        <img src="images/applepodcastlogo.svg" alt="Apple Podcasts Logo" class="service-logo w-24" />
+        <img src="images/applepodcastlogo.svg" alt="Apple Podcasts Logo" class="service-logo" />
       </a>
       <a href="https://youtube.com/playlist?list=XXXXXXX" target="_blank" class="service-button">
-        <img src="images/logo_youtube_onlight.svg" alt="YouTube Logo" class="service-logo w-24" />
+        <img src="images/logo_youtube_onlight.svg" alt="YouTube Logo" class="service-logo" />
       </a>
     </div>
 
-    <!-- 3 פרקים נבחרים (להוספה בשלב הבא) -->
+    <!-- פרקים רנדומליים (לשלב הבא) -->
     <div class="text-center">
       <h2 class="text-white font-bold text-lg mb-2">🎧 פרקים מומלצים</h2>
       <div id="recommended-episodes" class="flex flex-col items-center gap-4"></div>
@@ -44,7 +42,7 @@
 
   </div>
 
-  <!-- סקריפט לדף הפודקאסט -->
+  <!-- סקריפט עתידי להוספת פרקים -->
   <script src="js/index.js"></script>
 </body>
 </html>
