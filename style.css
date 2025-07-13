@@ -27,12 +27,21 @@ body {
   margin-top: 0.5rem;
 }
 
+#episode-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
 #episode-logo img {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
 }
+
 
 /* כותרת */
 #title {
