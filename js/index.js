@@ -11,7 +11,6 @@
 </head>
 <body>
   <div id="main-container">
-    <!-- טעינה -->
     <div id="loader" class="text-center">
       <svg class="animate-spin h-8 w-8 text-gray-400 mx-auto" viewBox="0 0 24 24" fill="none">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -21,7 +20,6 @@
       <p class="mt-2 text-gray-400">בטעינה...</p>
     </div>
 
-    <!-- תוכן -->
     <div id="content" class="hidden">
       <div id="episode-logo" class="logo-wrapper">
         <img id="logo-image" src="" alt="לוגו הפרק" />
@@ -35,7 +33,6 @@
       <div id="services-list" class="flex flex-col items-center gap-4"></div>
     </div>
 
-    <!-- הודעת שגיאה -->
     <div id="error-message" class="hidden text-center p-4 bg-red-100 text-red-700 rounded-lg">
       <p></p>
     </div>
