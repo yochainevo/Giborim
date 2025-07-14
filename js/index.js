@@ -1,61 +1,46 @@
-"use strict";
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>גיבורים</title>
+  <link rel="icon" href="./images/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="main-container">
+    <!-- טעינה -->
+    <div id="loader" class="text-center">
+      <svg class="animate-spin h-8 w-8 text-gray-400 mx-auto" viewBox="0 0 24 24" fill="none">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.3A7.96 7.96 0 014 12H0c0 3 1.13 5.82 3 7.94l3-2.64z" />
+      </svg>
+      <p class="mt-2 text-gray-400">בטעינה...</p>
+    </div>
 
-document.addEventListener("DOMContentLoaded", () => {
-  const FILE_PATH = "./data/exported_data.json";
-  const recommendedEl = document.getElementById("recommended-episodes");
+    <!-- תוכן -->
+    <div id="content" class="hidden">
+      <div id="episode-logo" class="logo-wrapper">
+        <img id="logo-image" src="" alt="לוגו הפרק" />
+      </div>
 
-  const fetchJsonData = async () => {
-    try {
-      const response = await fetch(FILE_PATH);
-      if (!response.ok) throw new Error("שגיאה בטעינת JSON");
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      recommendedEl.innerHTML = "<p class='text-red-400'>בעיה בטעינת הפרקים.</p>";
-      return null;
-    }
-  };
+      <div class="text-center mb-2">
+        <h1 id="title" class="font-bold text-2xl"></h1>
+        <p id="subtitle" class="subtitle-class mt-1"></p>
+      </div>
 
-  const formatDataForRender = (episodeRow) => {
-    const epNumber = episodeRow["מספר פרק"];
-    const imageName = epNumber === "Bonus"
-      ? "Bonus_Logo.jpg"
-      : `${String(epNumber).padStart(2, "0")}_Logo.jpg`;
+      <div id="services-list" class="flex flex-col items-center gap-4"></div>
+    </div>
 
-    return {
-      title: episodeRow["Title"] || "ללא כותרת",
-      subtitle: episodeRow["Subtitle"] || "",
-      url: `episode.html?ep=${epNumber}`,
-      logoUrl: `./images/episodes/${imageName}`,
-    };
-  };
+    <!-- הודעת שגיאה -->
+    <div id="error-message" class="hidden text-center p-4 bg-red-100 text-red-700 rounded-lg">
+      <p></p>
+    </div>
+  </div>
 
-  const renderRecommended = (episodes) => {
-    episodes.forEach((ep) => {
-      recommendedEl.innerHTML += `
-        <a href="${ep.url}" class="bg-white text-black rounded-lg shadow p-3 w-full max-w-[270px] flex flex-col items-center hover:bg-gray-200 transition">
-          <img src="${ep.logoUrl}" alt="Logo" class="w-20 h-20 rounded-full mb-2 object-cover" />
-          <div class="text-center">
-            <p class="font-bold">${ep.title}</p>
-            <p class="text-sm text-gray-700">${ep.subtitle}</p>
-          </div>
-        </a>
-      `;
-    });
-  };
-
-  const pickRandomEpisodes = (all, count = 3) => {
-    const shuffled = all.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count).map(formatDataForRender);
-  };
-
-  const init = async () => {
-    const jsonData = await fetchJsonData();
-    if (jsonData) {
-      const selected = pickRandomEpisodes(jsonData);
-      renderRecommended(selected);
-    }
-  };
-
-  init();
-});
+  <script src="js/main.js"></script>
+</body>
+</html>
