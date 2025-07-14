@@ -1,45 +1,95 @@
-<!DOCTYPE html>
-<html lang="he">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>גיבורים — הפודקאסט</title>
-  <link rel="icon" href="./images/favicon.ico" />
-  <link rel="stylesheet" href="./style.css" />
-</head>
-<body>
-  <div id="main-container">
+"use strict";
 
-    <div id="episode-logo" class="logo-wrapper">
-      <img src="images/Main_Logo.jpg" alt="גיבורים" />
-    </div>
+document.addEventListener("DOMContentLoaded", () => {
+  const FILE_PATH = "./data/exported_data.json";
 
-    <div>
-      <h1 id="title">גיבורים</h1>
-      <p id="subtitle" class="subtitle-class">
-        מסע מרגש ומעמיק אל חייהם וסיפוריהם של חללי מלחמת חרבות ברזל, אלה שנתנו את חייהם למען העם והמדינה
-      </p>
-    </div>
+  const loader = document.getElementById("loader");
+  const content = document.getElementById("content");
+  const errorMessage = document.getElementById("error-message");
+  const titleEl = document.getElementById("title");
+  const subtitleEl = document.getElementById("subtitle");
+  const logoImage = document.getElementById("logo-image");
+  const servicesList = document.getElementById("services-list");
 
-    <div id="services-list">
-      <a href="https://open.spotify.com/show/5Z4qxwzoaU06SboAPKfyHc" target="_blank" class="service-button">
-        <img src="images/logo_spotify_onlight.svg" alt="Spotify" class="service-logo" />
-      </a>
-      <a href="https://podcasts.apple.com/us/podcast/גיבורים/id1792379049" target="_blank" class="service-button">
-        <img src="images/applepodcastlogo.svg" alt="Apple Podcasts" class="service-logo" />
-      </a>
-      <a href="https://www.youtube.com/playlist?list=PLWt0QM7mz5qZQsFXNEUTlHiUZ7PVv6_2s" target="_blank" class="service-button">
-        <img src="images/logo_youtube_onlight.svg" alt="YouTube" class="service-logo" />
-      </a>
-    </div>
+  const getEpisodeNumber = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("ep") || "Lobby";
+  };
 
-    <div>
-      <h2 class="text-white font-bold text-lg mb-2">🎧 פרקים מומלצים</h2>
-      <div id="recommended-episodes"></div>
-    </div>
+  const fetchJsonData = async () => {
+    try {
+      const response = await fetch(FILE_PATH);
+      if (!response.ok) throw new Error(`שגיאה בטעינת JSON`);
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      showError("בעיה בטעינת הנתונים.");
+      return null;
+    }
+  };
 
-  </div>
+  const formatData = (row) => {
+    const epNumber = row["מספר פרק"];
+    let logoFilename;
 
-  <script src="js/index.js"></script>
-</body>
-</html>
+    if (epNumber === "Bonus") {
+      logoFilename = "Bonus_Logo.jpg";
+    } else if (epNumber === "Lobby") {
+      logoFilename = "Main_Logo.jpg";
+    } else {
+      logoFilename = `${String(epNumber).padStart(2, "0")}_Logo.jpg`;
+    }
+
+    return {
+      title: row["Title"] || "ללא כותרת",
+      subtitle: row["Subtitle"] || "",
+      logoUrl: `images/episodes/${logoFilename}`,
+      links: [
+        { name: "Spotify", url: row["SpotifyLink"], logo: "images/logo_spotify_onlight.svg" },
+        { name: "Apple",   url: row["AppleLink"],   logo: "images/applepodcastlogo.svg" },
+        { name: "YouTube", url: row["YoutubeLink"], logo: "images/logo_youtube_onlight.svg" }
+      ]
+    };
+  };
+
+  const renderEpisode = (data) => {
+    titleEl.textContent = data.title;
+    subtitleEl.textContent = data.subtitle;
+    logoImage.setAttribute("src", data.logoUrl);
+
+    servicesList.innerHTML = "";
+    data.links.forEach(service => {
+      if (service.url) {
+        servicesList.innerHTML += `
+          <a href="${service.url}" target="_blank" class="service-button" aria-label="${service.name}">
+            <img src="${service.logo}" alt="${service.name} Logo" class="service-logo" />
+          </a>
+        `;
+      }
+    });
+
+    loader.classList.add("hidden");
+    content.classList.remove("hidden");
+  };
+
+  const showError = (msg) => {
+    loader.classList.add("hidden");
+    errorMessage.classList.remove("hidden");
+    errorMessage.querySelector("p").textContent = msg;
+  };
+
+  const init = async () => {
+    const ep = getEpisodeNumber();
+    const jsonData = await fetchJsonData();
+    if (jsonData) {
+      const row = jsonData.find(entry => String(entry["מספר פרק"]) === ep);
+      if (row) {
+        renderEpisode(formatData(row));
+      } else {
+        showError(`הפרק "${ep}" לא נמצא.`);
+      }
+    }
+  };
+
+  init();
+});
