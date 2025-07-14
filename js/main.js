@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getEpisodeNumber = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("ep") || urlParams.get("episodeNumber") || "1";
+    return urlParams.get("ep") || urlParams.get("episodeNumber") || "Lobby";
   };
 
   const fetchJsonData = async () => {
