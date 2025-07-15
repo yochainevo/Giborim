@@ -90,7 +90,7 @@ body {
   animation: spin 1s linear infinite;
 }
 
-/* ביטול פרקים מומלצים */
+/* ביטול פרקים מומלצים אם הם קיימים */
 #recommended-episodes {
-  display: none;
+  display: none !important;
 }
