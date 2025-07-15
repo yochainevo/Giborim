@@ -66,17 +66,24 @@ document.addEventListener("DOMContentLoaded", () => {
     subtitleEl.textContent = data.subtitle;
     logoEl.setAttribute("src", data.logoUrl);
 
-    servicesList.className = "flex flex-col items-center gap-4";
     servicesList.innerHTML = "";
 
     data.links.forEach((service) => {
-      servicesList.innerHTML += `
-        <a href="${service.url}" target="_blank" rel="noopener noreferrer"
-          class="service-button" aria-label="${service.name}">
-          <img src="${service.logo}" alt="${service.name} Logo"
-            class="service-logo" onerror="this.style.display='none'">
-        </a>
-      `;
+      const button = document.createElement("a");
+      button.href = service.url;
+      button.target = "_blank";
+      button.rel = "noopener noreferrer";
+      button.className = "service-button";
+      button.setAttribute("aria-label", service.name);
+
+      const img = document.createElement("img");
+      img.src = service.logo;
+      img.alt = `${service.name} Logo`;
+      img.className = "service-logo";
+      img.onerror = () => img.style.display = "none";
+
+      button.appendChild(img);
+      servicesList.appendChild(button);
     });
 
     loader.classList.add("hidden");
