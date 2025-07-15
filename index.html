@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,37 +7,53 @@
   <link rel="icon" href="./images/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./style.css" />
+  <style>
+    body {
+      font-family: 'Assistant', sans-serif;
+      background-color: #f9fafb;
+    }
+
+    #logo-image {
+      width: 220px;
+      margin-bottom: 12px;
+    }
+
+    #title {
+      font-size: 1.8rem;
+      margin-top: 0.25rem;
+      font-weight: bold;
+    }
+
+    #subtitle {
+      font-size: 1.2rem;
+      margin-top: 0.25rem;
+      color: #555;
+    }
+
+    #services-list a {
+      margin: 0 12px;
+      display: inline-block;
+    }
+
+    #error-message p {
+      color: #b91c1c;
+    }
+  </style>
 </head>
+<body class="flex justify-center items-center min-h-screen">
 
-<body>
-  <div id="main-container">
-    <div id="loader" class="text-center">
-      <svg class="animate-spin h-8 w-8 text-gray-400 mx-auto" viewBox="0 0 24 24" fill="none">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.3A7.96 7.96 0 014 12H0c0 3 1.13 5.82 3 7.94l3-2.64z" />
-      </svg>
-      <p class="mt-2 text-gray-400">בטעינה...</p>
-    </div>
-
+  <div id="main-container" class="text-center px-4 py-6 max-w-xl w-full">
     <div id="content" class="hidden">
-      <div id="episode-logo" class="logo-wrapper">
-        <img src="images/logo.jpeg" alt="גיבורים" />
-      </div>
+      <img id="logo-image" alt="לוגו הפרק" />
 
-      <div class="text-center mb-2">
-        <h1 id="title"></h1>
-        <p id="subtitle" class="subtitle-class mt-1"></p>
-      </div>
+      <h1 id="title"></h1>
+      <p id="subtitle"></p>
 
-      <div id="services-list" class="flex flex-col items-center gap-6">
-        <!-- כפתורי שירות ייכנסו כאן דינאמית -->
-      </div>
+      <div id="services-list" class="flex justify-center flex-wrap mt-4"></div>
     </div>
 
-    <div id="error-message" class="hidden text-center p-4 bg-red-100 text-red-700 rounded-lg">
-      <p>לא ניתן לטעון נתונים. בדוק את מספר הפרק ונסה שוב.</p>
+    <div id="error-message" class="hidden bg-red-100 text-red-700 p-4 rounded-lg mt-6">
+      <p>לא ניתן לטעון את הפרק.</p>
     </div>
   </div>
 
