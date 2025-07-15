@@ -1,116 +1,87 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const FILE_PATH = "./data/exported_data.json";
-
-  // הסרת אלמנט מומלצים אם הוא נוסף איכשהו
-  const unwanted = document.getElementById("recommended-episodes");
-  if (unwanted) {
-    unwanted.remove();
-  }
-
-  const loader = document.getElementById("loader");
+  const FILE_PATH = "https://yochainevo.github.io/Giborim/data/exported_data.json";
   const content = document.getElementById("content");
   const errorMessage = document.getElementById("error-message");
-  const servicesList = document.getElementById("services-list");
   const titleEl = document.getElementById("title");
   const subtitleEl = document.getElementById("subtitle");
-  const logoEl = document.querySelector("#episode-logo img");
+  const logoImage = document.getElementById("logo-image");
+  const servicesList = document.getElementById("services-list");
 
   const getEpisodeNumber = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("ep") || urlParams.get("episodeNumber") || "Lobby";
+    return urlParams.get("ep") || "Lobby";
   };
 
   const fetchJsonData = async () => {
     try {
       const response = await fetch(FILE_PATH);
-      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+      if (!response.ok) throw new Error(`שגיאה בטעינת JSON`);
       return await response.json();
     } catch (error) {
       console.error(error);
-      loader.classList.add("hidden");
-      errorMessage.classList.remove("hidden");
-      errorMessage.querySelector("p").textContent =
-        "לא ניתן לטעון את הנתונים.";
+      showError("בעיה בטעינת הנתונים.");
       return null;
     }
   };
 
-  const formatDataForRender = (episodeRow) => {
-    const epNumber = episodeRow["מספר פרק"];
-    const logoFilename = epNumber === "Bonus"
-      ? "Bonus_Logo.jpg"
-      : `${String(epNumber).padStart(2, "0")}_Logo.jpg`;
+  const formatData = (row) => {
+    const epNumber = row["מספר פרק"];
+    let logoFilename;
+    if (epNumber === "Bonus") {
+      logoFilename = "Bonus_Logo.jpg";
+    } else if (epNumber === "Lobby") {
+      logoFilename = "Main_Logo.jpg";
+    } else {
+      logoFilename = `${String(epNumber).padStart(2, "0")}_Logo.jpg`;
+    }
 
     return {
-      title: episodeRow["Title"] || "ללא כותרת",
-      subtitle: episodeRow["Subtitle"] || "",
+      title: row["Title"] || "ללא כותרת",
+      subtitle: row["Subtitle"] || "",
+      logoUrl: `images/episodes/${logoFilename}`,
       links: [
-        {
-          name: "Spotify",
-          url: episodeRow["SpotifyLink"],
-          logo: "images/logo_spotify_onlight.svg",
-        },
-        {
-          name: "Apple",
-          url: episodeRow["AppleLink"],
-          logo: "images/applepodcastlogo.svg",
-        },
-        {
-          name: "YouTube",
-          url: episodeRow["YoutubeLink"],
-          logo: "images/logo_youtube_onlight.svg",
-        },
-      ],
-      logoUrl: `./images/episodes/${logoFilename}`,
+        { name: "Spotify", url: row["SpotifyLink"], logo: "images/logo_spotify_onlight.svg" },
+        { name: "Apple", url: row["AppleLink"], logo: "images/applepodcastlogo.svg" },
+        { name: "YouTube", url: row["YoutubeLink"], logo: "images/logo_youtube_onlight.svg" }
+      ]
     };
   };
 
-  const renderServices = (data) => {
+  const renderEpisode = (data) => {
     titleEl.textContent = data.title;
     subtitleEl.textContent = data.subtitle;
-    logoEl.setAttribute("src", data.logoUrl);
+    logoImage.setAttribute("src", data.logoUrl);
 
     servicesList.innerHTML = "";
-
-    data.links.forEach((service) => {
-      const button = document.createElement("a");
-      button.href = service.url;
-      button.target = "_blank";
-      button.rel = "noopener noreferrer";
-      button.className = "service-button";
-      button.setAttribute("aria-label", service.name);
-
-      const img = document.createElement("img");
-      img.src = service.logo;
-      img.alt = `${service.name} Logo`;
-      img.className = "service-logo";
-      img.onerror = () => img.style.display = "none";
-
-      button.appendChild(img);
-      servicesList.appendChild(button);
+    data.links.forEach(service => {
+      if (service.url) {
+        servicesList.innerHTML += `
+          <a href="${service.url}" target="_blank">
+            <img src="${service.logo}" alt="${service.name} Logo" />
+          </a>
+        `;
+      }
     });
 
-    loader.classList.add("hidden");
     content.classList.remove("hidden");
   };
 
-  const init = async () => {
-    const episodeNumber = getEpisodeNumber();
-    const jsonData = await fetchJsonData();
+  const showError = (msg) => {
+    errorMessage.classList.remove("hidden");
+    errorMessage.querySelector("p").textContent = msg;
+  };
 
+  const init = async () => {
+    const ep = getEpisodeNumber();
+    const jsonData = await fetchJsonData();
     if (jsonData) {
-      const episodeRow = jsonData.find(row =>
-        String(row["מספר פרק"]) === episodeNumber
-      );
-      if (episodeRow) {
-        renderServices(formatDataForRender(episodeRow));
+      const row = jsonData.find(entry => String(entry["מספר פרק"]) === ep);
+      if (row) {
+        renderEpisode(formatData(row));
       } else {
-        loader.classList.add("hidden");
-        errorMessage.classList.remove("hidden");
-        errorMessage.querySelector("p").textContent =
-          `הפרק "${episodeNumber}" לא נמצא.`;
+        showError(`הפרק "${ep}" לא נמצא.`);
       }
     }
   };
