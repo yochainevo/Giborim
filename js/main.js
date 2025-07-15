@@ -3,6 +3,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const FILE_PATH = "./data/exported_data.json";
 
+  // הסרת אלמנט מומלצים אם הוא נוסף איכשהו
+  const unwanted = document.getElementById("recommended-episodes");
+  if (unwanted) {
+    unwanted.remove();
+  }
+
   const loader = document.getElementById("loader");
   const content = document.getElementById("content");
   const errorMessage = document.getElementById("error-message");
@@ -95,7 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const jsonData = await fetchJsonData();
 
     if (jsonData) {
-      const episodeRow = jsonData.find(row => String(row["מספר פרק"]) === episodeNumber);
+      const episodeRow = jsonData.find(row =>
+        String(row["מספר פרק"]) === episodeNumber
+      );
       if (episodeRow) {
         renderServices(formatDataForRender(episodeRow));
       } else {
