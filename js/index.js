@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return {
       title: row["Title"] || "ללא כותרת",
       subtitle: row["Subtitle"] || "",
-      url: `/?ep=${epId}`,
+      url: `?ep=${epId}`,
       logoUrl: `images/episodes/${imageName}`,
       links: [
         {
@@ -89,9 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  const pickRandomEpisodes = (all, count = 3) => {
+  const shuffleEpisodes = (all) => {
     const shuffled = all.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count).map(formatDataForRender);
+    return shuffled.map(formatDataForRender);
   };
 
   const init = async () => {
@@ -104,18 +104,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       //Render Recommendations:
+      if (epId === "Lobby") {
+        const selectedRandomEpisodes = shuffleEpisodes(jsonData);
+        renderRecommended(selectedRandomEpisodes);
 
-      const selectedRandomEpisodes = pickRandomEpisodes(jsonData);
-      renderRecommended(selectedRandomEpisodes);
-
-      let interval = setInterval(() => nextSlide(), 5000);
-      const carouselEl = document.querySelector(".carousel");
-      carouselEl.addEventListener("mouseenter", () => {
-        clearInterval(interval);
-      });
-      carouselEl.addEventListener("mouseleave", () => {
-        interval = setInterval(() => nextSlide(), 5000);
-      });
+        let interval = setInterval(() => nextSlide(), 5000);
+        const carouselEl = document.querySelector(".carousel");
+        carouselEl.addEventListener("mouseenter", () => {
+          clearInterval(interval);
+        });
+        carouselEl.addEventListener("mouseleave", () => {
+          interval = setInterval(() => nextSlide(), 5000);
+        });
+        carouselEl.classList.remove("hidden");
+      }
 
       loaderEl.classList.add("hidden");
       contentEl.classList.remove("hidden");
