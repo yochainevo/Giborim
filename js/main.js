@@ -1,7 +1,8 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const FILE_PATH = "https://yochainevo.github.io/Giborim/data/exported_data.json";
+  const FILE_PATH =
+    "https://yochainevo.github.io/Giborim/data/exported_data.json";
   const content = document.getElementById("content");
   const errorMessage = document.getElementById("error-message");
   const titleEl = document.getElementById("title");
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoImage = document.getElementById("logo-image");
   const servicesList = document.getElementById("services-list");
 
-  const getEpisodeNumber = () => {
+  const getEpisodeFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get("ep") || "Lobby";
   };
@@ -42,10 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
       subtitle: row["Subtitle"] || "",
       logoUrl: `images/episodes/${logoFilename}`,
       links: [
-        { name: "Spotify", url: row["SpotifyLink"], logo: "images/logo_spotify_onlight.svg" },
-        { name: "Apple", url: row["AppleLink"], logo: "images/applepodcastlogo.svg" },
-        { name: "YouTube", url: row["YoutubeLink"], logo: "images/logo_youtube_onlight.svg" }
-      ]
+        {
+          name: "Spotify",
+          url: row["SpotifyLink"],
+          logo: "images/logo_spotify_onlight.svg",
+        },
+        {
+          name: "Apple",
+          url: row["AppleLink"],
+          logo: "images/applepodcastlogo.svg",
+        },
+        {
+          name: "YouTube",
+          url: row["YoutubeLink"],
+          logo: "images/logo_youtube_onlight.svg",
+        },
+      ],
     };
   };
 
@@ -55,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logoImage.setAttribute("src", data.logoUrl);
 
     servicesList.innerHTML = "";
-    data.links.forEach(service => {
+    data.links.forEach((service) => {
       if (service.url) {
         servicesList.innerHTML += `
           <a href="${service.url}" target="_blank">
@@ -74,10 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const init = async () => {
-    const ep = getEpisodeNumber();
+    const ep = getEpisodeFromUrl();
+    console.log("e", ep);
     const jsonData = await fetchJsonData();
     if (jsonData) {
-      const row = jsonData.find(entry => String(entry["מספר פרק"]) === ep);
+      const row = jsonData.find((entry) => String(entry["מספר פרק"]) === ep);
       if (row) {
         renderEpisode(formatData(row));
       } else {
