@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +8,7 @@
   <link rel="icon" href="./images/favicon.ico" />
   <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
   <div id="main-container">
 
@@ -28,18 +30,67 @@
       <a href="https://podcasts.apple.com/us/podcast/גיבורים/id1792379049" target="_blank" class="service-button">
         <img src="images/applepodcastlogo.svg" alt="Apple Podcasts" class="service-logo" />
       </a>
-      <a href="https://www.youtube.com/playlist?list=PLWt0QM7mz5qZQsFXNEUTlHiUZ7PVv6_2s" target="_blank" class="service-button">
+      <a href="https://www.youtube.com/playlist?list=PLWt0QM7mz5qZQsFXNEUTlHiUZ7PVv6_2s" target="_blank"
+        class="service-button">
         <img src="images/logo_youtube_onlight.svg" alt="YouTube" class="service-logo" />
       </a>
     </div>
 
-    <div>
-      <h2 class="text-white font-bold text-lg mb-2">🎧 פרקים מומלצים</h2>
-      <div id="recommended-episodes"></div>
+    <h2 class="text-white font-bold text-lg mb-2">🎧 פרקים מומלצים</h2>
+    <div id="recommended-episodes"></div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Assistant', sans-serif;
+        background-color: #f9fafb;
+      }
+
+      #logo-image {
+        width: 220px;
+        margin-bottom: 12px;
+      }
+
+      #title {
+        font-size: 1.8rem;
+        margin-top: 0.25rem;
+        font-weight: bold;
+      }
+
+      #subtitle {
+        font-size: 1.2rem;
+        margin-top: 0.25rem;
+        color: #555;
+      }
+
+      #services-list a {
+        margin: 0 12px;
+        display: inline-block;
+      }
+
+      #error-message p {
+        color: #b91c1c;
+      }
+    </style>
+
+
+    <div id="main-container" class="text-center px-4 py-6 max-w-xl w-full">
+      <div id="content" class="hidden">
+        <img id="logo-image" alt="לוגו הפרק" />
+
+        <h1 id="title"></h1>
+        <p id="subtitle"></p>
+
+        <div id="services-list" class="flex justify-center flex-wrap mt-4"></div>
+      </div>
+
+      <div id="error-message" class="hidden bg-red-100 text-red-700 p-4 rounded-lg mt-6">
+        <p>לא ניתן לטעון את הפרק.</p>
+      </div>
+
     </div>
 
-  </div>
-
-  <script src="js/index.js"></script>
+    <script src="js/index.js"></script>
 </body>
+
 </html>
