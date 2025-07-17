@@ -76,25 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
     injectCarouselSlides(slideContents);
   };
 
-  function setupCarouselAutoScroll(container) {
-    const items = container.querySelectorAll("[data-carousel-item]");
-    let index = 0;
-
-    setInterval(() => {
-      items.forEach((el, i) => {
-        if (i === index) {
-          el.classList.remove("hidden");
-          el.setAttribute("data-carousel-item", "active");
-        } else {
-          el.classList.add("hidden");
-          el.removeAttribute("data-carousel-item");
-        }
-      });
-
-      index = (index + 1) % items.length;
-    }, 5000); // every 5 seconds
-  }
-
   const renderEpisode = (episode) => {
     titleEl.textContent = episode.title;
     subtitleEl.textContent = episode.subtitle;
@@ -126,6 +107,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const selectedRandomEpisodes = pickRandomEpisodes(jsonData);
       renderRecommended(selectedRandomEpisodes);
+
+      let interval = setInterval(() => nextSlide(), 5000);
+      const carouselEl = document.querySelector(".carousel");
+      carouselEl.addEventListener("mouseenter", () => {
+        clearInterval(interval);
+      });
+      carouselEl.addEventListener("mouseleave", () => {
+        interval = setInterval(() => nextSlide(), 5000);
+      });
+
       loaderEl.classList.add("hidden");
       contentEl.classList.remove("hidden");
     }
