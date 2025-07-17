@@ -10,6 +10,10 @@ body {
   justify-content: center;
 }
 
+.hidden {
+  display: none;
+}
+
 #main-container {
   max-width: 270px;
   width: 100%;
@@ -93,4 +97,8 @@ body {
 
 #loader svg {
   animation: spin 1s linear infinite;
+}
+
+[data-carousel-item] {
+  transition: opacity 0.7s ease-in-out;
 }

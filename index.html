@@ -4,85 +4,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>גיבורים — הפודקאסט</title>
+  <title>גיבורים - הפודקאסט</title>
   <link rel="icon" href="./images/favicon.ico" />
   <link rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
   <div id="main-container">
-
-    <div id="episode-logo" class="logo-wrapper">
-      <img src="images/Main_Logo.jpg" alt="גיבורים" />
+    <!-- Loading Spinner -->
+    <div id="loader" class="text-center">
+      <svg class="animate-spin h-8 w-8 text-gray-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+        viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+        </path>
+      </svg>
+      <p class="mt-2 text-gray-500">בטעינה...</p>
     </div>
 
-    <div>
+    <div id="content" class="hidden">
+      <div id="episode-logo" class="logo-wrapper">
+        <img src="images/Main_Logo.jpg" alt="גיבורים" />
+      </div>
+
       <h1 id="title">גיבורים</h1>
-      <p id="subtitle" class="subtitle-class">
+      <p id="subtitle" class="subtitle-class mb-3">
         מסע מרגש ומעמיק אל חייהם וסיפוריהם של חללי מלחמת חרבות ברזל, אלה שנתנו את חייהם למען העם והמדינה
       </p>
-    </div>
 
-    <div id="services-list" class="services-list">
-      <a href="https://open.spotify.com/show/5Z4qxwzoaU06SboAPKfyHc" target="_blank" class="service-button">
-        <img src="images/logo_spotify_onlight.svg" alt="Spotify" class="service-logo" />
-      </a>
-      <a href="https://podcasts.apple.com/us/podcast/גיבורים/id1792379049" target="_blank" class="service-button">
-        <img src="images/applepodcastlogo.svg" alt="Apple Podcasts" class="service-logo" />
-      </a>
-      <a href="https://www.youtube.com/playlist?list=PLWt0QM7mz5qZQsFXNEUTlHiUZ7PVv6_2s" target="_blank"
-        class="service-button">
-        <img src="images/logo_youtube_onlight.svg" alt="YouTube" class="service-logo" />
-      </a>
-    </div>
-
-    <h2 class="text-white font-bold text-lg mb-2">🎧 פרקים מומלצים</h2>
-    <div id="recommended-episodes"></div>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet" />
-    <!-- <style>
-      body {
-        font-family: 'Assistant', sans-serif;
-      }
-
-      #logo-image {
-        width: 220px;
-        margin-bottom: 12px;
-      }
-
-      #title {
-        font-size: 1.8rem;
-        margin-top: 0.25rem;
-        font-weight: bold;
-      }
-
-      #subtitle {
-        font-size: 1.2rem;
-        margin-top: 0.25rem;
-        color: #555;
-      }
-
-      #error-message p {
-        color: #b91c1c;
-      }
-    </style>
-
-
-    <div id="main-container" class="text-center px-4 py-6 max-w-xl w-full">
-      <div id="content" class="hidden">
-        <img id="logo-image" alt="לוגו הפרק" />
-
-        <h1 id="title"></h1>
-        <p id="subtitle"></p>
-
-        <div id="services-list" class="flex justify-center flex-wrap mt-4"></div>
+      <div id="services-list" class="services-list">
+        <a href="https://open.spotify.com/show/5Z4qxwzoaU06SboAPKfyHc" target="_blank" class="service-button"
+          id="spotify-link">
+          <img src="images/logo_spotify_onlight.svg" alt="Spotify" class="service-logo" />
+        </a>
+        <a href="https://podcasts.apple.com/us/podcast/גיבורים/id1792379049" target="_blank" class="service-button"
+          id="apple-link">
+          <img src="images/applepodcastlogo.svg" alt="Apple Podcasts" class="service-logo" />
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PLWt0QM7mz5qZQsFXNEUTlHiUZ7PVv6_2s" target="_blank"
+          class="service-button" id="youtube-link">
+          <img src="images/logo_youtube_onlight.svg" alt="YouTube" class="service-logo" />
+        </a>
       </div>
 
-      <div id="error-message" class="hidden bg-red-100 text-red-700 p-4 rounded-lg mt-6">
-        <p>לא ניתן לטעון את הפרק.</p>
+      <h2 class="text-white font-bold text-lg mb-2">🎧 פרקים מומלצים</h2>
+      <div id="recommended-carousel" class="relative w-full" data-carousel="slide">
+        <div class="relative h-[320px] overflow-hidden rounded-xl">
+          <!-- Carousel items injected by JS -->
+        </div>
+
+        <!-- Slider indicators -->
+        <div class="absolute z-30 flex -translate-x-1/2 bottom-2 left-1/2 space-x-3 rtl:space-x-reverse"
+          id="recommended-indicators"></div>
+
+        <!-- Navigation buttons -->
+        <button type="button"
+          class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
+          data-carousel-prev>
+          <span
+            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/60 group-focus:ring-4 group-focus:ring-white">
+            <svg class="w-4 h-4 text-white rtl:rotate-180" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 1 1 5l4 4" />
+            </svg>
+            <span class="sr-only">Previous</span>
+          </span>
+        </button>
+        <button type="button"
+          class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
+          data-carousel-next>
+          <span
+            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/60 group-focus:ring-4 group-focus:ring-white">
+            <svg class="w-4 h-4 text-white rtl:rotate-180" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 9 4-4-4-4" />
+            </svg>
+            <span class="sr-only">Next</span>
+          </span>
+        </button>
       </div>
 
-    </div> -->
+    </div>
+
+
 
     <script src="js/index.js"></script>
 </body>
