@@ -35,7 +35,7 @@
         מסע מרגש ומעמיק אל חייהם וסיפוריהם של חללי מלחמת חרבות ברזל, אלה שנתנו את חייהם למען העם והמדינה
       </p>
 
-      <div id="services-list" class="services-list">
+      <div id="services-list" class="services-list flex mb-5">
         <a href="https://open.spotify.com/show/5Z4qxwzoaU06SboAPKfyHc" target="_blank" class="service-button"
           id="spotify-link">
           <img src="images/logo_spotify_onlight.svg" alt="Spotify" class="service-logo" />
@@ -51,46 +51,19 @@
       </div>
 
       <h2 class="text-white font-bold text-lg mb-2">🎧 פרקים מומלצים</h2>
-      <div id="recommended-carousel" class="relative w-full" data-carousel="slide">
-        <div class="relative h-[320px] overflow-hidden rounded-xl">
-          <!-- Carousel items injected by JS -->
+      <div class="carousel" style="direction: ltr;">
+        <div class="carousel-track" id="carousel-track">
+          <!-- Slides will be injected here by JavaScript -->
         </div>
-
-        <!-- Slider indicators -->
-        <div class="absolute z-30 flex -translate-x-1/2 bottom-2 left-1/2 space-x-3 rtl:space-x-reverse"
-          id="recommended-indicators"></div>
-
-        <!-- Navigation buttons -->
-        <button type="button"
-          class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
-          data-carousel-prev>
-          <span
-            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/60 group-focus:ring-4 group-focus:ring-white">
-            <svg class="w-4 h-4 text-white rtl:rotate-180" fill="none" viewBox="0 0 6 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M5 1 1 5l4 4" />
-            </svg>
-            <span class="sr-only">Previous</span>
-          </span>
-        </button>
-        <button type="button"
-          class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
-          data-carousel-next>
-          <span
-            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/60 group-focus:ring-4 group-focus:ring-white">
-            <svg class="w-4 h-4 text-white rtl:rotate-180" fill="none" viewBox="0 0 6 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 9 4-4-4-4" />
-            </svg>
-            <span class="sr-only">Next</span>
-          </span>
-        </button>
+        <button class="carousel-btn prev" onclick="prevSlide()">‹</button>
+        <button class="carousel-btn next" onclick="nextSlide()">›</button>
       </div>
 
     </div>
 
 
 
+    <script src="js/carousel.js"></script>
     <script src="js/index.js"></script>
 </body>
 

@@ -30,10 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const formatDataForRender = (row) => {
     const epId = row["מספר פרק"];
-    const imageName =
-      +epId === NaN
-        ? `${epId}_Logo.jpg`
-        : `${String(epId).padStart(2, "0")}_Logo.jpg`;
+    const imageName = isNaN(+epId)
+      ? `${epId}_Logo.jpg`
+      : `${String(epId).padStart(2, "0")}_Logo.jpg`;
 
     return {
       title: row["Title"] || "ללא כותרת",
@@ -61,42 +60,20 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const renderRecommended = (episodes) => {
-    const container = document.querySelector("#recommended-carousel .relative");
-    const indicators = document.getElementById("recommended-indicators");
-
-    episodes.forEach((ep, index) => {
-      // Item
-      const item = document.createElement("div");
-      item.className = `absolute inset-0 transition-opacity duration-700 ease-in-out ${
-        index === 0 ? "" : "hidden"
-      }`;
-      item.setAttribute("data-carousel-item", index === 0 ? "active" : "");
-
-      item.innerHTML = `
+    const slideContents = episodes.map((ep) => {
+      return `
       <div class="flex justify-center items-center h-full">
-        <a href="${ep.url}" class="bg-white text-black rounded-xl shadow-xl p-4 max-w-[270px] w-full flex flex-col items-center hover:bg-gray-100 transition">
+        <a href="${ep.url}" class="bg-white text-black rounded-xl shadow-xl p-4 max-w-[270px] w-full flex flex-col items-center hover:bg-gray-100 transition justify-between" style="min-height:210px">
           <img src="${ep.logoUrl}" alt="Logo" class="w-20 h-20 rounded-full mb-2 object-cover shadow" />
-          <div class="text-center">
+          <div class="text-center flex flex-col justify-center flex-1">
             <p class="font-bold text-base">${ep.title}</p>
             <p class="text-sm text-gray-600">${ep.subtitle}</p>
           </div>
         </a>
       </div>
     `;
-      container.appendChild(item);
-
-      // Indicator
-      const dot = document.createElement("button");
-      dot.type = "button";
-      dot.className = `w-3 h-3 rounded-full ${
-        index === 0 ? "bg-white" : "bg-white/50"
-      }`;
-      dot.setAttribute("aria-label", `Slide ${index + 1}`);
-      dot.setAttribute("data-carousel-slide-to", index);
-      indicators.appendChild(dot);
     });
-
-    setupCarouselAutoScroll(container);
+    injectCarouselSlides(slideContents);
   };
 
   function setupCarouselAutoScroll(container) {
