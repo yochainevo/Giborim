@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       title: row["Title"] || "ללא כותרת",
       subtitle: row["Subtitle"] || "",
       url: `/?ep=${epId}`,
-      logoUrl: `/images/episodes/${imageName}`,
+      logoUrl: `images/episodes/${imageName}`,
       links: [
         {
           name: "Spotify",
